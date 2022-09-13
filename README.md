@@ -4,9 +4,12 @@ Parameter optimization for [LapTrack](https://github.com/yfukai/laptrack) with [
 ## How to execute analysis
 
 ```bash
+conda env create -f conda_env_minimum.yaml
+conda activate optlaptrack
 
-python execute.py conditions_drift.yaml # for the cell migration dataset
-python execute.py conditions_homeostasis.yaml # for others
+python execute.py --n-jobs=1 conditions_drift.yaml # for the cell migration dataset
+python execute.py --n-jobs=1 conditions_synthetic.yaml # for the coloured particles dataset
+python execute.py --n-jobs=1 conditions_homeostasis.yaml # for the mouse epidermis dataset
 
 cd tracking_scripts
 python a1_homeostasis_simple_LAP_baseline_grid.py # to perform grid search for the mouse epidermis dataset
