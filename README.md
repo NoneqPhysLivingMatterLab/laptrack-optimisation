@@ -54,6 +54,9 @@ Located in `results`.
 - **homeostasis_grid_search** Results for parameter grid search with the mouse epidermis dataset.
 - **synthetic** Results for the coloured particles dataset.
 
+## Interactive annotation example
+- The example for interactive annotation with napari is located in [The LapTrack repository](https://github.com/yfukai/laptrack/blob/main/examples/napari_interactive_example.ipynb).
+
 ## Credits
 
 - The data in `data/CellMigration` are generated from data in [10.5281/zenodo.6087728](https://doi.org/10.5281/zenodo.6087728), which are distributed with [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode).
