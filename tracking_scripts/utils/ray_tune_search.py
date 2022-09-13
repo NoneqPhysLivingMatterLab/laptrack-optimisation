@@ -3,9 +3,6 @@ from ray.tune.suggest import BasicVariantGenerator
 from ray.tune.suggest.optuna import OptunaSearch
 from ray.tune.suggest import ConcurrencyLimiter
 
-# from ray.tune.suggest.nevergrad import NevergradSearch
-# from ray.tune.suggest.flaml import CFO
-# import nevergrad as ng
 from matplotlib import pyplot as plt
 from os import path
 import numpy as np
@@ -14,19 +11,11 @@ from datetime import datetime
 import pandas as pd
 from itertools import product
 
-# names = ["RandomSearch", "CFO", "OptunaSearch", "NevergradSearch"]
-# searchs = [BasicVariantGenerator, CFO, OptunaSearch, NevergradSearch]
 names = ["RandomSearch", "OptunaSearch"]
 searchs = [BasicVariantGenerator, OptunaSearch]
-# names = ["RandomSearch"]
-# searchs = [BasicVariantGenerator]
 get_additional_configs = lambda single_shot_count: [
     dict(max_concurrent=single_shot_count),
-    #        dict(),
     dict(),
-    #        dict(
-    #            optimizer=ng.optimizers.OnePlusOne,
-    #        ),
 ]
 
 
