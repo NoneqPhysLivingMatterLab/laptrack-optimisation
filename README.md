@@ -1,7 +1,7 @@
 # Scripts for "LapTrack: Linear assignment particle tracking with tunable metrics"
 Parameter optimization for [LapTrack](https://github.com/yfukai/laptrack) with [Ray-Tune](https://www.ray.io/ray-tune).
 
-## How to execute analysis
+## Executing the analysis
 
 ```bash
 conda env create -f conda_env_minimum.yaml
