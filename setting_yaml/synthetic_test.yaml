@@ -1,0 +1,9 @@
+regionprop_keys:
+  ["y","x","channel_0","channel_1","channel_2",]
+
+single_shot_count: 1
+iterations: 1
+drift: False
+euclidean_dims: 2
+division: false
+       

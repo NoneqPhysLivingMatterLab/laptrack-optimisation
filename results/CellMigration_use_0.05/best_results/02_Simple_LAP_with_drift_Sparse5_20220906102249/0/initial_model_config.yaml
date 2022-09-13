@@ -1,0 +1,34 @@
+drift_x: !!python/object/apply:numpy.core.multiarray.scalar
+- &id001 !!python/object/apply:numpy.dtype
+  args:
+  - f8
+  - false
+  - true
+  state: !!python/tuple
+  - 3
+  - <
+  - null
+  - null
+  - null
+  - -1
+  - -1
+  - 0
+- !!binary |
+  9d6GHbAvK8A=
+drift_y: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  fc47PUDLDMA=
+gap_closing: 1
+gap_closing_max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  Okn8DCo0MEA=
+max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  Okn8DCo0MEA=
+splitting_max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  Okn8DCo0MEA=

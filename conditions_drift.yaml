@@ -1,0 +1,31 @@
+programs:
+  -
+    - 01_simple_LAP.py
+    - 02_simple_LAP_with_drift.py
+
+program_params: 
+  none: none
+
+conditions:
+  cellmigration:
+    base_dirs: 
+      - "~/TrackingData/CellMigration/Sparse1/"
+      - "~/TrackingData/CellMigration/Sparse2/"
+      - "~/TrackingData/CellMigration/Sparse3/"
+      - "~/TrackingData/CellMigration/Sparse4/"
+      - "~/TrackingData/CellMigration/Sparse5/"
+      - "~/TrackingData/CellMigration/Sparse6/"
+      - "~/TrackingData/CellMigration/Sparse7/"
+    results_dir: "./results/CellMigration_use_0.05/"
+    prefix: 
+      - "Sparse1"
+      - "Sparse2"
+      - "Sparse3"
+      - "Sparse4"
+      - "Sparse5"
+      - "Sparse6"
+      - "Sparse7"
+    yaml_path: ./setting_yaml/CellMigration.yaml
+    fitting_use_ratio: 0.05
+    division_fitting_use_ratio: 0.05
+    score_target: "true_ratio"

@@ -1,0 +1,107 @@
+base_dirs:
+- ./data/homeostasis/organized_data/area2
+config:
+  drift_x: 0
+  drift_y: 0
+  gap_closing_max_distance: !!python/object:ray.tune.search.sample.Float
+    lower: !!python/object/apply:numpy.core.multiarray.scalar
+    - &id001 !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      IJvgOK/TEkA=
+    sampler: !!python/object:ray.tune.search.sample._Uniform {}
+    upper: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      Z0v12nSiREA=
+  max_distance: !!python/object:ray.tune.search.sample.Float
+    lower: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      IJvgOK/TEkA=
+    sampler: !!python/object:ray.tune.search.sample._Uniform {}
+    upper: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      Z0v12nSiREA=
+  nll_offset: !!python/object:ray.tune.search.sample.Float
+    lower: 0.01
+    sampler: !!python/object:ray.tune.search.sample._Uniform {}
+    upper: 0.5
+  splitting_max_distance: !!python/object:ray.tune.search.sample.Float
+    lower: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      IJvgOK/TEkA=
+    sampler: !!python/object:ray.tune.search.sample._Uniform {}
+    upper: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      Z0v12nSiREA=
+config_update: null
+coords_update: null
+discrete_configs:
+  gap_closing:
+  - 0
+  - 1
+divide_training: false
+division_fitting_use_ratio: null
+fitting_use_ratio: null
+fix_configs: []
+get_tracker: !!python/object/apply:functools.partial
+  args:
+  - &id002 !!python/name:__main__.get_tracker ''
+  state: !!python/tuple
+  - *id002
+  - !!python/tuple []
+  - second_only: false
+    use_euclidean_dist: false
+    use_iou: false
+    use_overlap: true
+    use_weighted_dist: false
+  - null
+guess_dist_cutoff_keys:
+- max_distance
+- gap_closing_max_distance
+- splitting_max_distance
+initial_configs:
+- gap_closing_max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    1qLK06keKEA=
+  max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    1qLK06keKEA=
+  nll_offset: 0.01
+  splitting_max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    1qLK06keKEA=
+initial_configs_csv_pattern: !!python/name:__main__.get_initial_configs_csv_pattern ''
+lap_name: 04_simple_LAP_with_overlap_dist_sum_quantile0.999_factor1.50_overlap
+max_dist_quantile: 0.999
+max_dist_quantile_factor: 1.5
+model_include_drift: true
+only_division_configs: []
+params_update: null
+prefix: area2
+read_overlap_df: true
+results_dir: ./results/homeostasis/
+score_target: union_ratio
+test_base_dir: ./data/homeostasis/organized_data/area1
+test_base_dirs:
+- ./data/homeostasis/organized_data/area1
+yaml_path: ./setting_yaml/homeostasis.yaml

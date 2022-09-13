@@ -1,0 +1,43 @@
+programs:
+  -
+    - 01_simple_LAP.py
+  -
+    - 03_simple_LAP_with_similarity-simple.py
+
+program_params:
+  none: none
+
+conditions:
+  synthetic:
+    base_dirs: 
+      - "./data/synthetic/organized_data_small/write_every_25/0"
+      - "./data/synthetic/organized_data_small/write_every_50/0"
+      - "./data/synthetic/organized_data_small/write_every_75/0"
+      - "./data/synthetic/organized_data_small/write_every_100/0"
+      - "./data/synthetic/organized_data_small/write_every_125/0"
+      - "./data/synthetic/organized_data_small/write_every_150/0"
+      - "./data/synthetic/organized_data_small/write_every_175/0"
+      - "./data/synthetic/organized_data_small/write_every_200/0"
+    results_dir: "./results/synthetic/"
+    prefix: 
+      - "write_every_25-0"
+      - "write_every_50-0"
+      - "write_every_75-0"
+      - "write_every_100-0"
+      - "write_every_125-0"
+      - "write_every_150-0"
+      - "write_every_175-0"
+      - "write_every_200-0"
+    yaml_path: ./setting_yaml/synthetic.yaml
+    test_base_dirs: 
+      - "./data/synthetic/organized_data_small/write_every_25/1"
+      - "./data/synthetic/organized_data_small/write_every_50/1"
+      - "./data/synthetic/organized_data_small/write_every_75/1"
+      - "./data/synthetic/organized_data_small/write_every_100/1"
+      - "./data/synthetic/organized_data_small/write_every_125/1"
+      - "./data/synthetic/organized_data_small/write_every_150/1"
+      - "./data/synthetic/organized_data_small/write_every_175/1"
+      - "./data/synthetic/organized_data_small/write_every_200/1"
+    score_target: "union_ratio"
+
+

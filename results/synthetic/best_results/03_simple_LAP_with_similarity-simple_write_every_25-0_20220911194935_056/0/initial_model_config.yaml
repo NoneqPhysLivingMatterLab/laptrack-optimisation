@@ -1,0 +1,25 @@
+drift_x: 0
+drift_y: 0
+feature_weight: 0
+gap_closing: 1
+max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+- &id001 !!python/object/apply:numpy.dtype
+  args:
+  - f8
+  - false
+  - true
+  state: !!python/tuple
+  - 3
+  - <
+  - null
+  - null
+  - null
+  - -1
+  - -1
+  - 0
+- !!binary |
+  9Xxkkv383T8=
+segment_connect_max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  9Xxkkv383T8=

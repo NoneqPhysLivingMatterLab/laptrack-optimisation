@@ -1,0 +1,8 @@
+regionprop_keys:
+  ["centroid-0","centroid-1","centroid-weighted-0","centroid-weighted-1",]
+
+single_shot_count: 10
+iterations: 10
+drift: False
+euclidean_dims: 2
+division: true

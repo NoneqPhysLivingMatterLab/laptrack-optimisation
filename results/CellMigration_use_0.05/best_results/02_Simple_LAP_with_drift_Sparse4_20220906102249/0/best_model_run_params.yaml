@@ -1,0 +1,115 @@
+base_dirs:
+- /home/fukai/TrackingData/CellMigration/Sparse4/
+config:
+  drift_x: !!python/object:ray.tune.search.sample.Float
+    lower: !!python/object/apply:numpy.core.multiarray.scalar
+    - &id001 !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      sYwQVjcmMsA=
+    sampler: !!python/object:ray.tune.search.sample._Uniform {}
+    upper: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      hOSqB3TgE8A=
+  drift_y: !!python/object:ray.tune.search.sample.Float
+    lower: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      XCtxNXekIsA=
+    sampler: !!python/object:ray.tune.search.sample._Uniform {}
+    upper: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      AclepzSqBkA=
+  gap_closing_max_distance: !!python/object:ray.tune.search.sample.Float
+    lower: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      F2I4+8nZG0A=
+    sampler: !!python/object:ray.tune.search.sample._Uniform {}
+    upper: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      nwasOuvBQUA=
+  max_distance: !!python/object:ray.tune.search.sample.Float
+    lower: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      F2I4+8nZG0A=
+    sampler: !!python/object:ray.tune.search.sample._Uniform {}
+    upper: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      nwasOuvBQUA=
+  splitting_max_distance: !!python/object:ray.tune.search.sample.Float
+    lower: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      F2I4+8nZG0A=
+    sampler: !!python/object:ray.tune.search.sample._Uniform {}
+    upper: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      nwasOuvBQUA=
+config_update: null
+coords_update: null
+discrete_configs:
+  gap_closing:
+  - 0
+  - 1
+divide_training: false
+division_fitting_use_ratio: 0.05
+fitting_use_ratio: 0.05
+fix_configs: []
+get_tracker: !!python/name:__main__.get_tracker ''
+guess_dist_cutoff_keys:
+- max_distance
+- splitting_max_distance
+- gap_closing_max_distance
+initial_configs:
+- drift_x: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    0kX7V1QeJ8A=
+  drift_y: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    N/IyF9TzCcA=
+  gap_closing_max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    S88SLuSdLEA=
+  max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    S88SLuSdLEA=
+  splitting_max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    S88SLuSdLEA=
+initial_configs_csv_pattern: null
+lap_name: 02_Simple_LAP_with_drift
+max_dist_quantile: 0.999
+max_dist_quantile_factor: 1.5
+model_include_drift: true
+only_division_configs: []
+params_update: null
+prefix: Sparse4
+read_overlap_df: false
+results_dir: ./results/CellMigration_use_0.05/
+score_target: true_ratio
+test_base_dirs: null
+yaml_path: ./setting_yaml/CellMigration.yaml

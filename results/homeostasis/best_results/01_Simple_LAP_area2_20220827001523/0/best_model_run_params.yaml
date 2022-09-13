@@ -1,0 +1,89 @@
+base_dirs:
+- ./data/homeostasis/organized_data/area2
+config:
+  gap_closing_max_distance: !!python/object:ray.tune.sample.Float
+    lower: !!python/object/apply:numpy.core.multiarray.scalar
+    - &id001 !!python/object/apply:numpy.dtype
+      args:
+      - f8
+      - false
+      - true
+      state: !!python/tuple
+      - 3
+      - <
+      - null
+      - null
+      - null
+      - -1
+      - -1
+      - 0
+    - !!binary |
+      IJvgOK/TEkA=
+    sampler: !!python/object:ray.tune.sample._Uniform {}
+    upper: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      Z0v12nSiREA=
+  max_distance: !!python/object:ray.tune.sample.Float
+    lower: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      IJvgOK/TEkA=
+    sampler: !!python/object:ray.tune.sample._Uniform {}
+    upper: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      Z0v12nSiREA=
+  splitting_max_distance: !!python/object:ray.tune.sample.Float
+    lower: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      IJvgOK/TEkA=
+    sampler: !!python/object:ray.tune.sample._Uniform {}
+    upper: !!python/object/apply:numpy.core.multiarray.scalar
+    - *id001
+    - !!binary |
+      Z0v12nSiREA=
+config_update: null
+coords_update: null
+discrete_configs:
+  gap_closing:
+  - 0
+  - 1
+divide_training: false
+division_fitting_use_ratio: null
+fitting_use_ratio: null
+fix_configs: []
+get_tracker: !!python/name:__main__.get_tracker ''
+guess_dist_cutoff_keys:
+- max_distance
+- splitting_max_distance
+- gap_closing_max_distance
+initial_configs:
+- gap_closing_max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    1qLK06keKEA=
+  max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    1qLK06keKEA=
+  splitting_max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    1qLK06keKEA=
+initial_configs_csv_pattern: null
+lap_name: 01_Simple_LAP
+max_dist_quantile: 0.999
+max_dist_quantile_factor: 1.5
+model_include_drift: false
+only_division_configs:
+- splitting_max_distance
+params_update: null
+prefix: area2
+results_dir: ./results/homeostasis/
+score_target: union_ratio
+test_base_dir: ./data/homeostasis/organized_data/area1
+test_base_dirs:
+- ./data/homeostasis/organized_data/area1
+yaml_path: ./setting_yaml/homeostasis.yaml

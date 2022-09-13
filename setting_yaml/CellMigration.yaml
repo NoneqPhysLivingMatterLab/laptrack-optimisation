@@ -1,0 +1,7 @@
+regionprop_keys:
+  ["centroid-0","centroid-1","area","intensity_mean","intensity_max","eccentricity","orientation"]
+single_shot_count: 10
+iterations: 10
+drift: True
+euclidean_dims: 2
+division: true

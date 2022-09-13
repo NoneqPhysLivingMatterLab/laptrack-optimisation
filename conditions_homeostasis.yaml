@@ -1,0 +1,28 @@
+programs:
+  -
+    - 01_simple_LAP.py
+  -
+    - 04_simple_LAP_with_overlap_dist_sum.py
+
+program_params:
+  04_simple_LAP_with_overlap_dist_sum.py:
+    second_only: [true,false]
+    use_overlap: [true]
+    use_euclidean_dist: [true,false]
+    use_weighted_dist: [true,false]
+    use_iou: [true,false]
+
+conditions:
+  homeostasis_2:
+    base_dirs: 
+      - "./data/homeostasis/organized_data/area1"
+      - "./data/homeostasis/organized_data/area2"
+    results_dir: "./results/homeostasis/"
+    prefix: 
+      - "area1"
+      - "area2"
+    yaml_path: ./setting_yaml/homeostasis.yaml
+    test-base-dirs: 
+      - ./data/homeostasis/organized_data/area2
+      - ./data/homeostasis/organized_data/area1
+    score_target: "union_ratio"

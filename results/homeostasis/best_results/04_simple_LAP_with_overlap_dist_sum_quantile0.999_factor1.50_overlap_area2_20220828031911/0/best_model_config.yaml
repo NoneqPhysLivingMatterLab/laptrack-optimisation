@@ -1,0 +1,7 @@
+drift_x: 0
+drift_y: 0
+gap_closing: 1
+gap_closing_max_distance: 19.692224772436624
+max_distance: 12.061992826875752
+nll_offset: 0.0915514239156584
+splitting_max_distance: 19.069322519729454
