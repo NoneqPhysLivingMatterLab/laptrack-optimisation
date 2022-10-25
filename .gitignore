@@ -1,0 +1,9 @@
+*.pyc
+__pycache__/
+.keymap.xkm
+.python-version
+qsub_job*.sh.o*
+hs_err*
+*.sw*
+.d*
+*.mov

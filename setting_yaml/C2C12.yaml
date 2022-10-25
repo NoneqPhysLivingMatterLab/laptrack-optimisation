@@ -1,0 +1,14 @@
+regionprop_keys:
+  ['x','y',
+  # 'area','eccentricity',
+  # 'intensity_mean-0','intensity_mean-1','intensity_mean-3',
+  # 'intensity_max-0','intensity_max-1','intensity_max-3',
+  # 'orientation','axis_major_length','axis_minor_length',
+   ]
+single_shot_count: 10
+iterations: 10
+drift: False
+normalize_exclude_keys: []
+euclidean_dims: 2
+division: true
+       
