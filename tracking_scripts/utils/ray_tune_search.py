@@ -1,7 +1,7 @@
 from ray import tune
-from ray.tune.suggest import BasicVariantGenerator
-from ray.tune.suggest.optuna import OptunaSearch
-from ray.tune.suggest import ConcurrencyLimiter
+from ray.tune.search import BasicVariantGenerator
+from ray.tune.search.optuna import OptunaSearch
+from ray.tune.search import ConcurrencyLimiter
 
 from matplotlib import pyplot as plt
 from os import path
