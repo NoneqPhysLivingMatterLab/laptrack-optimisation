@@ -8,6 +8,7 @@ import numpy as np
 import os
 from os import path
 import networkx as nx
+import pandas as pd
 
 from utils.common import power_dist, read_yaml
 from utils.data_loader import read_data
@@ -53,11 +54,11 @@ def get_tracker(config, regionprop_keys=None):
 
 
 def main():
-    for i in range(1,10):
+    yaml_path = "../setting_yaml/yeast_image_toolkit_benchmark.yaml"
+    results_dir = path.abspath("../results/yeast_image_toolkit_benchmark")
+    for i in range(6,7):
         print("analyzing", i)
         base_dir = f"../data/yeast_image_toolkit_benchmark/organized_data/TestSet{i}"
-        yaml_path = "../setting_yaml/yeast_image_toolkit_benchmark.yaml"
-        results_dir = "../results/yeast_image_toolkit_benchmark"
         os.makedirs(results_dir, exist_ok=True)
 
         single_shot_count = 30
@@ -88,6 +89,34 @@ def main():
             true_edges2 = [e for e in true_edges if len(list(gt_tree.successors(e[0]))) < 2]
             predicted_edges2 = [e for e in predicted_edges if len(list(pred_tree.successors(e[0]))) < 2]
             score_dict = calc_scores(true_edges2, predicted_edges2)
+
+            # output result for evaluation by evaluation platform (yeast image toolkit)
+            trial_str = f'{int(config["max_distance"]):02d}_{int(config["splitting_max_distance"]):02d}_{int(config["gap_closing"]):01d}'
+            
+            detailed_results_dir=path.join(results_dir,"detailed_tracking_results",f"TestSet{i}")
+            os.makedirs(detailed_results_dir,exist_ok=True)
+            os.makedirs(path.join(detailed_results_dir,"predicted"),exist_ok=True)
+			#Frame_number, Cell_number, Position_X, Position_Y
+            seg_res = []
+            for frame, cs in enumerate(coords):
+                for ind,c in enumerate(cs):
+                    seg_res.append([frame+1,ind+1,c[0],c[1]])
+            seg_df = pd.DataFrame(np.array(seg_res),columns=["Frame_number", "Cell_number", "Position_X", "Position_Y"])
+            seg_df["Frame_number"] = seg_df["Frame_number"].astype(int)
+            seg_df["Cell_number"] = seg_df["Cell_number"].astype(int)
+            #print(path.join(detailed_results_dir,"predicted",f"res_seg_{trial_str}.txt"))
+            seg_df.to_csv(path.join(detailed_results_dir,"predicted",f"res_seg_{trial_str}.txt"),index=False)
+            dividing_edges = set(pred_tree.edges) - set(predicted_edges2)
+            for e in dividing_edges:
+                pred_tree.remove_edge(*e)
+            tra_res = []
+            # Frame_number, Cell_number, Unique_cell_number
+            for j,segment in enumerate(nx.connected_components(pred_tree.to_undirected())):
+                for frame, ind in segment:
+                    tra_res.append([frame+1,ind+1,j+1])
+            tra_df = pd.DataFrame(np.array(tra_res),columns=["Frame_number", "Cell_number", "Unique_cell_number"],dtype=int).sort_values(["Frame_number", "Cell_number"])
+            tra_df.to_csv(path.join(detailed_results_dir,"predicted",f"res_tra_{trial_str}.txt"),index=False)
+                
 
             if report:
                 tune.report(**score_dict_original, **score_dict)
