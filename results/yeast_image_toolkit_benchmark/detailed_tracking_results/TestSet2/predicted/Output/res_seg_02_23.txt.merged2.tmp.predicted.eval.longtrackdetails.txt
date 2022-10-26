@@ -1,0 +1,5 @@
+Frame,Result,Prev_frame,GT_unique_id,GT_pos0_x,GT_pos0_y,GT_pos1_x,GT_pos1_y,Algo_unique_id,Algo_pos0_x,Algo_pos0_y,Algo_pos1_x,Algo_pos1_y
+30,CORRECT,1,1,318.49,264.12,323.66,253.96,1,318.49,264.12,323.66,253.96
+30,CORRECT,1,2,284.77,256.1,290.51,247.21,2,284.77,256.1,290.51,247.21
+30,FALSE_NEGATIVE,1,3,307.29,235.71,324.73,223.07,,,,,
+30,FALSE_NEGATIVE,1,4,341.93,286.49,358.78,265.05,,,,,

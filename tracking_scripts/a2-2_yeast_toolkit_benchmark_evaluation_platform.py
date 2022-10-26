@@ -17,42 +17,63 @@ from glob import glob
 from subprocess import run
 from multiprocessing import Pool
 from functools import partial
+import pandas as pd
 
 EP_path = path.join(os.getenv("HOME"),".local/src/EP")
 assert path.isdir(EP_path)
 print(EP_path)
 results_dir = path.abspath("../results/yeast_image_toolkit_benchmark")
-records=[]
 
-for i in range(4,5):
+def build_command(detailed_results_dir,seg_df_path):
+    tra_df_path=seg_df_path.replace("seg","tra") 
+    assert path.isfile(tra_df_path)
+    args=[
+         detailed_results_dir,
+         "GroundTruth",
+         "GroundTruth_Segmentation.csv",
+         "GroundTruth_Tracking.csv",
+         "predicted",
+         "predicted", 
+         path.basename(seg_df_path),
+         path.basename(tra_df_path),
+    ]
+    command = f"cd {EP_path} ; conda activate evaluate_platform ; python -m ep.evaluate {' '.join(args)}"
+    return command
+
+# %%
+   
+for i in range(1,11):
     print("analyzing", i)
     detailed_results_dir=path.join(results_dir,"detailed_tracking_results",f"TestSet{i}")
     seg_df_paths=glob(path.join(detailed_results_dir,"predicted","res_seg_*.txt"))
     assert len(seg_df_paths) > 0
     commands = []
     for seg_df_path in seg_df_paths:
-        tra_df_path=seg_df_path.replace("seg","tra") 
-        assert path.isfile(tra_df_path)
-        args=[
-            detailed_results_dir,
-            "GroundTruth",
-            "GroundTruth_Segmentation.csv",
-            "GroundTruth_Tracking.csv",
-            "predicted",
-            "predicted", 
-            path.basename(seg_df_path),
-            path.basename(tra_df_path),
-        ]
-        command = f"cd {EP_path} ; conda activate evaluate_platform ; python -m ep.evaluate {' '.join(args)}"
-        commands.append(command)
+        track_results_file=path.join(detailed_results_dir,"predicted","Output",
+                                     f"{path.basename(seg_df_path)}.merged2.tmp.predicted.eval.summary.txt")
+        if not path.exists(track_results_file):
+            command=build_command(detailed_results_dir,seg_df_path)
+            commands.append(command)
     pool = Pool(processes=20)
     pool.map(partial(run,shell=True,capture_output=True), commands) 
     pool.close()
     pool.join()
+
+# %%
+
+records=[]
+for i in range(1,11):
+    print("analyzing", i)
+    detailed_results_dir=path.join(results_dir,"detailed_tracking_results",f"TestSet{i}")
+    seg_df_paths=glob(path.join(detailed_results_dir,"predicted","res_seg_*.txt"))
+    assert len(seg_df_paths) > 0
     print("finished")
     for seg_df_path in seg_df_paths:
-        track_results_file=path.join(detailed_results_dir,"predicted","Output",f"{path.basename(seg_df_path)}.merged2.tmp.predicted.eval.summary.txt")
-        assert path.exists(track_results_file)
+        track_results_file=path.join(detailed_results_dir,"predicted","Output",
+                                     f"{path.basename(seg_df_path)}.merged2.tmp.predicted.eval.summary.txt")
+        if not path.exists(track_results_file):
+            command=build_command(detailed_results_dir,seg_df_path)
+            run(command,shell=True)
         with open(track_results_file,"r") as f:
             res=f.readlines()
             res_dict={ r.split(":")[0]:float(r.split(":")[1].replace("\n","")) for r in res[-3:]}
@@ -63,5 +84,11 @@ for i in range(4,5):
             **res_dict
         }
         records.append(record)
+
+# %%
+results_df=pd.DataFrame.from_records(records)
+results_df["max_distance"] =results_df["seg_df_path"].apply(lambda x:int(x.split("_")[2]))
+results_df["gap_closing_max_distance"] =results_df["seg_df_path"].apply(lambda x:int(x[:-4].split("_")[3]))
+results_df.to_csv(path.join(results_dir,"evaluation_platform_res.csv"),index=False)
 
 # %%

@@ -7,5 +7,4 @@ hs_err*
 *.sw*
 .d*
 *.mov
-detailed_tracking_results/
 detailed_tracking_results_old/

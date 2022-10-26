@@ -1,0 +1,13 @@
+Algorithm: predicted
+Segmentation:
+Precision: 1.0
+Recall: 1
+F: 1.0
+Tracking:
+Precision: 1.0
+Recall: 0.9874213836477987
+F: 0.9936708860759493
+Long-time tracking:
+Precision: 1.0
+Recall: 0.9230769230769231
+F: 0.96
