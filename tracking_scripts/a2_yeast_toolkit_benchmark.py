@@ -56,7 +56,7 @@ def get_tracker(config, regionprop_keys=None):
 def main():
     yaml_path = "../setting_yaml/yeast_image_toolkit_benchmark.yaml"
     results_dir = path.abspath("../results/yeast_image_toolkit_benchmark")
-    for i in range(6,7):
+    for i in range(1,11):
         print("analyzing", i)
         base_dir = f"../data/yeast_image_toolkit_benchmark/organized_data/TestSet{i}"
         os.makedirs(results_dir, exist_ok=True)

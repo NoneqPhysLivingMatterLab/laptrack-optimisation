@@ -51,7 +51,7 @@ def organize_data(base_dir,name):
     track_txt_path=Path(track_path)/"man_track.txt"
     np.savetxt(track_txt_path,np.array(tracking_txt_df,dtype=np.uint32),fmt="%d")
 
-for i in range(10,11):
+for i in range(1,11):
     organize_data(base_dir/f"TestSet{i}",f"TestSet{i}")
 
 # %%
