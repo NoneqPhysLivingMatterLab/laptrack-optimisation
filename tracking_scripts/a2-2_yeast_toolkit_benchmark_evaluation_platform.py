@@ -22,7 +22,7 @@ print(EP_path)
 # %%
 results_dir = path.abspath("../results/yeast_image_toolkit_benchmark")
 records=[]
-for i in range(1,11):
+for i in range(4,5):
     print("analyzing", i)
     detailed_results_dir=path.join(results_dir,"detailed_tracking_results",f"TestSet{i}")
     seg_df_paths=glob(path.join(detailed_results_dir,"predicted","res_seg_*.txt"))

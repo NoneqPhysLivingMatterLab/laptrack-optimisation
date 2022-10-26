@@ -18,24 +18,30 @@ from laptrack.utils import order_edges
 LAP_NAME = "01-2_Simple_LAP_baseline_grid"
 
 max_dists = np.linspace(2, 47, 16).tolist()
-split_max_dists = np.linspace(2, 47, 16).tolist()
-gap_closings = [0, 1]
+gap_closing_max_dists = np.linspace(2, 47, 16).tolist()
+#gap_closings = [0, 1]
 
 config = {
     "max_distance": tune.grid_search(max_dists),
-    "splitting_max_distance": tune.grid_search(split_max_dists),
+    "gap_closing_max_distance": tune.grid_search(gap_closing_max_dists),
     #    "gap_closing_max_distance": tune.grid_search(np.linspace(4, 20, 4)) ,
-    "gap_closing": tune.grid_search(gap_closings),
+#    "gap_closing": tune.grid_search(gap_closings),
 }
 initial_configs = [
     {
         "max_distance": max_dist,
-        "splitting_max_distance": split_max_dist,
+        "gap_closing_max_distance": gap_closing_max_dist,
         #    "gap_closing_max_distance": 20,
-        "gap_closing": gap_closing,
+#        "gap_closing": gap_closing,
     }
-    for max_dist, split_max_dist, gap_closing in product(
-        max_dists, split_max_dists, gap_closings
+#    for max_dist, gap_closing in product(
+#        max_dists, gap_closings
+#    )
+#    for max_dist, gap_closing_max_dist, gap_closing in product(
+#        max_dists, gap_closing_max_dists, gap_closings
+#    )
+    for max_dist, gap_closing_max_dist in product(
+        max_dists, gap_closing_max_dists
     )
 ]
 
@@ -45,11 +51,11 @@ def get_tracker(config, regionprop_keys=None):
     dist_power = 2
     return LapTrack(
         track_cost_cutoff=config["max_distance"] ** dist_power,
-        splitting_cost_cutoff=config["splitting_max_distance"] ** dist_power,
-        gap_closing_cost_cutoff=config["splitting_max_distance"] ** dist_power,
-        gap_closing_max_frame_count=config["gap_closing"],
+#        splitting_cost_cutoff=config["gap_closing_max_distance"] ** dist_power,
+        gap_closing_cost_cutoff=config["gap_closing_max_distance"] ** dist_power,
+        gap_closing_max_frame_count=1, #config["gap_closing"],
         track_dist_metric=partial(power_dist, ws=ws, power=dist_power),
-        splitting_dist_metric=partial(power_dist, ws=ws, power=dist_power),
+#        splitting_dist_metric=partial(power_dist, ws=ws, power=dist_power),
     )
 
 
@@ -91,7 +97,7 @@ def main():
             score_dict = calc_scores(true_edges2, predicted_edges2)
 
             # output result for evaluation by evaluation platform (yeast image toolkit)
-            trial_str = f'{int(config["max_distance"]):02d}_{int(config["splitting_max_distance"]):02d}_{int(config["gap_closing"]):01d}'
+            trial_str = f'{int(config["max_distance"]):02d}_{int(config["gap_closing_max_distance"]):02d}'
             
             detailed_results_dir=path.join(results_dir,"detailed_tracking_results",f"TestSet{i}")
             os.makedirs(detailed_results_dir,exist_ok=True)
