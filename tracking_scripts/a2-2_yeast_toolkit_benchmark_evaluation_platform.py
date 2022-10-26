@@ -14,19 +14,22 @@ pip install -r requirements.txt
 import os
 from os import path
 from glob import glob
-from subprocess import call
+from subprocess import run
+from multiprocessing import Pool
+from functools import partial
 
 EP_path = path.join(os.getenv("HOME"),".local/src/EP")
 assert path.isdir(EP_path)
 print(EP_path)
-# %%
 results_dir = path.abspath("../results/yeast_image_toolkit_benchmark")
 records=[]
+
 for i in range(4,5):
     print("analyzing", i)
     detailed_results_dir=path.join(results_dir,"detailed_tracking_results",f"TestSet{i}")
     seg_df_paths=glob(path.join(detailed_results_dir,"predicted","res_seg_*.txt"))
     assert len(seg_df_paths) > 0
+    commands = []
     for seg_df_path in seg_df_paths:
         tra_df_path=seg_df_path.replace("seg","tra") 
         assert path.isfile(tra_df_path)
@@ -41,7 +44,13 @@ for i in range(4,5):
             path.basename(tra_df_path),
         ]
         command = f"cd {EP_path} ; conda activate evaluate_platform ; python -m ep.evaluate {' '.join(args)}"
-        call(command,shell=True)
+        commands.append(command)
+    pool = Pool(processes=20)
+    pool.map(partial(run,shell=True,capture_output=True), commands) 
+    pool.close()
+    pool.join()
+    print("finished")
+    for seg_df_path in seg_df_paths:
         track_results_file=path.join(detailed_results_dir,"predicted","Output",f"{path.basename(seg_df_path)}.merged2.tmp.predicted.eval.summary.txt")
         assert path.exists(track_results_file)
         with open(track_results_file,"r") as f:
@@ -54,6 +63,5 @@ for i in range(4,5):
             **res_dict
         }
         records.append(record)
-# %%
-record
+
 # %%
