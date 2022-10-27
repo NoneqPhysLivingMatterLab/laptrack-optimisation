@@ -100,7 +100,6 @@ for score_key in score_keys:
     fig.legend(markers,methods,handletextpad=0.01,columnspacing=0.01,
                ncol=len(markers),
                loc="lower left", bbox_to_anchor=(0,0.9))
-    #fig.subplots_adjust(right=0.85)
     fig.savefig(f"../plots/figS_yeast_benchmark_{score_key}.pdf", bbox_inches="tight")
 
 

@@ -13,10 +13,9 @@ from copy import deepcopy
 # coords, track_labels, true_edges, GT_TRA_images = read_data(
 #     "../data/HL60_live/organized_data", params["regionprop_keys"]
 # )
-
 params = read_yaml("../setting_yaml/yeast_image_toolkit_benchmark.yaml")
 coords, track_labels, true_edges, GT_TRA_images = read_data(
-    f"../data/yeast_image_toolkit_benchmark/organized_data/TestSet{i}", params["regionprop_keys"]
+    f"../data/yeast_image_toolkit_benchmark/organized_data/TestSet4", params["regionprop_keys"]
 )
 
 
@@ -211,5 +210,4 @@ plt.ylabel("score")
 plt.savefig("../plots/fig3b_scores_homeostasis.pdf",bbox_inches="tight")
 
 # %%
-!cp ../plots/fig3b_scores*.pdf ~/myworks/papers/2208_LapTrack/fig3
 # %%
