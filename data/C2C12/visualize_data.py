@@ -15,7 +15,7 @@ viewer = napari.Viewer()
 
 # %%
 basedir = "/Volumes/common2/TEMPORARY/TimelapseExamples/TrackingProject/data/C2C12/090303-C2C12P15-FGF2,BMP2/hzd5p/osfstorage/"
-images = imread.imread(path.join(basedir,"*.tif"))
+images = imread.imread(path.join(basedir,"*.tif"))#[::5]
 image_paths = glob(path.join(basedir,"*.tif"))
 print(image_paths[0])
 
@@ -23,8 +23,10 @@ print(image_paths[0])
 viewer.add_image(images)
 #viewer.add_labels(labels[target_Ts,0])
 
-track_df=pd.read_csv("./organized_data/BMP2/090303-C2C12P15-FGF2,BMP2_9_all/regionprops.csv",index_col=0)
+track_df=pd.read_csv("./organized_data/BMP2/090303-C2C12P15-FGF2,BMP2_9_all/regionprops.csv",index_col=0, comment="#")
+#track_df=pd.read_csv("./organized_data/Sparse5/regionprops.csv",index_col=0)
 # %%
+track_df["frame"]=track_df["frame"]+1
 viewer.add_tracks(
     track_df[["track","frame","y","x"]].values
 )
