@@ -1,6 +1,7 @@
 # %%
 """
-the following commands need to be executed before analysis
+the following commands need to be executed before analysis.
+the notebook was executed as a Jupyter notebook in evaluate_platform environment.
 
 cd ~/.local/src/
 git clone https://github.com/Fafa87/EP/
@@ -10,7 +11,9 @@ git checkout 76d7c12b637169a088a6eb40f040d609e2b5d9dd
 conda create -y -n evaluate_platform python=3.7
 conda activate evaluate_platform
 pip install -r requirements.txt
+pip install pandas jupyter
 """
+
 import os
 from os import path
 from glob import glob
@@ -76,7 +79,9 @@ for i in range(1,11):
             run(command,shell=True)
         with open(track_results_file,"r") as f:
             res=f.readlines()
-            res_dict={ r.split(":")[0]:float(r.split(":")[1].replace("\n","")) for r in res[-3:]}
+            res_dict={ "Tracking "+r.split(":")[0]:float(r.split(":")[1].replace("\n","")) for r in res[-7:-4]}
+            res_dict2={ "Long-time tracking "+r.split(":")[0]:float(r.split(":")[1].replace("\n","")) for r in res[-3:]}
+            res_dict.update(res_dict2)
         print(res_dict)
         record={
             "TestSet":i,
