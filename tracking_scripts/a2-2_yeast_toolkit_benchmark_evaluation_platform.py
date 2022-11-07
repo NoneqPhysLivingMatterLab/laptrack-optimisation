@@ -1,4 +1,11 @@
-# %%
+##############
+#
+# The script to calculate tracking scores 
+# for the yeast-image-toolkit datasets
+# using the evaluation_platform in the Yeast Image Toolkit.
+#
+###############
+
 """
 the following commands need to be executed before analysis.
 the notebook was executed as a Jupyter notebook in evaluate_platform environment.
@@ -14,6 +21,8 @@ pip install -r requirements.txt
 pip install pandas jupyter
 """
 
+########### Importing packages ###########
+
 import os
 from os import path
 from glob import glob
@@ -27,6 +36,7 @@ assert path.isdir(EP_path)
 print(EP_path)
 results_dir = path.abspath("../results/yeast_image_toolkit_benchmark")
 
+########### A function to build a command for score evaluation ###########
 def build_command(detailed_results_dir,seg_df_path):
     tra_df_path=seg_df_path.replace("seg","tra") 
     assert path.isfile(tra_df_path)
@@ -44,7 +54,7 @@ def build_command(detailed_results_dir,seg_df_path):
     return command
 
 # %%
-   
+########### Performing score evaluation ###########
 for i in range(1,11):
     print("analyzing", i)
     detailed_results_dir=path.join(results_dir,"detailed_tracking_results",f"TestSet{i}")
@@ -63,7 +73,7 @@ for i in range(1,11):
     pool.join()
 
 # %%
-
+########### Parsing scores ###########
 records=[]
 for i in range(1,11):
     print("analyzing", i)
@@ -91,9 +101,8 @@ for i in range(1,11):
         records.append(record)
 
 # %%
+########### Merging scores and save ###########
 results_df=pd.DataFrame.from_records(records)
 results_df["max_distance"] =results_df["seg_df_path"].apply(lambda x:int(x.split("_")[2]))
 results_df["gap_closing_max_distance"] =results_df["seg_df_path"].apply(lambda x:int(x[:-4].split("_")[3]))
 results_df.to_csv(path.join(results_dir,"evaluation_platform_res.csv"),index=False)
-
-# %%

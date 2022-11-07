@@ -1,5 +1,12 @@
-# %%
-# Importing packages 
+##############
+#
+# The script to perform tracking of yeast-image-toolkit datasets
+# with grid points of the cutoff parameters.
+#
+###############
+
+
+########### Importing packages ###########
 
 from laptrack import LapTrack
 from functools import partial
@@ -19,7 +26,11 @@ from laptrack.scores import calc_scores
 
 LAP_NAME = "01-2_Simple_LAP_baseline_grid"
 
+########### Setting the search range of each parameters ###########
+
+# max_dists ... the cutoff for the cost function at tracking
 max_dists = np.linspace(2, 47, 16).tolist()
+# gap_closing_max_dists ... the cutoff for the cost function at gap closing
 gap_closing_max_dists = np.linspace(2, 47, 16).tolist()
 
 config = {
@@ -36,6 +47,7 @@ initial_configs = [
     )
 ]
 
+########### A function to get a LapTrack object with a given config ###########
 
 def get_tracker(config, regionprop_keys=None):
     ws = [1, 1] + [0] * (len(regionprop_keys) - 1)
@@ -47,6 +59,7 @@ def get_tracker(config, regionprop_keys=None):
         track_dist_metric=partial(power_dist, ws=ws, power=dist_power),
     )
 
+########### The main function for grid search ###########
 
 def main():
     yaml_path = "../setting_yaml/yeast_image_toolkit_benchmark.yaml"
@@ -64,6 +77,7 @@ def main():
             base_dir, regionprop_keys
         )
 
+        ########### The function to track, save scores and results ###########
         def calc_fitting_score(config, report=True):
             lt = get_tracker(
                 config,
@@ -89,6 +103,7 @@ def main():
             if report:
                 tune.report(**score_dict)
 
+        ########### Execute grid search by Ray-Tune ###########
         config2 = config.copy()
         search_alg = BasicVariantGenerator(
             points_to_evaluate=initial_configs,
@@ -101,6 +116,7 @@ def main():
             mode="max",
             search_alg=search_alg,
         )
+        ########### Save results ###########
         analysis_df = analysis.results_df.sort_values(by="Jaccard_index", ascending=False)
         analysis_df.to_csv(path.join(results_dir, f"yeast_image_toolkit_grid_search_TestSet{i}.csv"))
 

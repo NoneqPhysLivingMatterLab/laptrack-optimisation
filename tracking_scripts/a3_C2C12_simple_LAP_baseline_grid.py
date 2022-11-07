@@ -1,3 +1,13 @@
+##############
+#
+# The script to perform tracking of C2C12 datasets
+# with grid points of the cutoff parameters.
+# See a2-1_yeast_toolkit_benchmark.py for the detailed comments 
+# for each step.
+#
+###############
+
+
 from laptrack import LapTrack
 from functools import partial
 from itertools import product
