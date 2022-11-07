@@ -14,7 +14,9 @@ python execute.py --n-jobs=1 conditions_homeostasis.yaml # for the mouse epiderm
 cd tracking_scripts
 python a1_homeostasis_simple_LAP_baseline_grid.py # to perform grid search for the mouse epidermis dataset
 python a2-1_yeast_toolkit_benchmark.py # to perform grid search for the Yeast Image Toolkit dataset
-python a2-2_yeast_toolkit_benchmark_evaluation_platform.py # to evaluate the scores for the Yeast Image Toolkit dataset results
+# execute a2-2_yeast_toolkit_benchmark_evaluation_platform.py 
+# with following the instruction at the file top
+# to evaluate the scores for the Yeast Image Toolkit dataset results
 python a3_C2C12_simple_LAP_baseline_grid.py # to perform grid search for the C2C12 dataset
 ```
 
