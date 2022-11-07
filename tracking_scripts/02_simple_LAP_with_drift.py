@@ -1,10 +1,14 @@
+################################################
+# the script to calculate tracking scores 
+# with the squared-distance-based metric
+# with the drift term
+################################################
+
 from laptrack import LapTrack
 from functools import partial
-from pathlib import Path
-import os
-from ray import tune
 from fire import Fire
 
+# power_dist is the weighted distance-power weight with the drift term
 from utils.common import power_dist_with_drift, main
 
 LAP_NAME = "02_Simple_LAP_with_drift"
@@ -14,7 +18,9 @@ initial_configs = [{}]
 
 
 def get_tracker(config, division, regionprop_keys=None):
+    # uses only first two dimension to calculate the cost
     ws = [1, 1] + [0] * (len(regionprop_keys) - 1)
+    # the power is set to be 2 (square)
     dist_power = 2
     return LapTrack(
         track_cost_cutoff=config["max_distance"] ** dist_power,

@@ -1,5 +1,9 @@
+################################################
+# the script to calculate tracking scores 
+# with the overlap-based metric
+################################################
+
 from functools import partial
-from urllib.parse import uses_netloc
 from fire import Fire
 from ray import tune
 import numpy as np
@@ -16,6 +20,9 @@ def get_initial_configs_csv_pattern(yaml_params, prefix):
     else:
         return f"01_Simple_LAP_{prefix}*.csv"
 
+# we define the metric. the overlap is pre-computed and stored in overlap_df.
+# see https://github.com/yfukai/laptrack/blob/202b9ec0d24fab97406a073ac8c78d00a97a2e3f/docs/examples/overlap_tracking.ipynb
+# for the simplified example.
 def metric_overlap(
            c1s,c2s, 
            overlap_df,
@@ -54,7 +61,8 @@ def metric_overlap(
         score = score + weighted_dist_weight * w_euclidean_dist ** 2 
     return score
 
-
+# the function to return the LapTrack objects 
+# with given parameters in the "config".
 def get_tracker(
     config, 
     division,
@@ -69,6 +77,8 @@ def get_tracker(
     ws = [1, 1,] + [
         0
     ] * (len(regionprop_keys) )
+
+    # load the parameter values
     if "dist_weight" in config.keys():
         dist_weight = config["dist_weight"]
     else:
@@ -82,6 +92,7 @@ def get_tracker(
     else:
         nll_offset = 0
  
+    # define the metric function
     metric = partial(
         metric_overlap,
         overlap_df=overlap_df,       
@@ -93,20 +104,23 @@ def get_tracker(
         nll_offset=nll_offset,
     )
  
+    # depending on the condition, use different metrics
     get_metric = lambda max_dist, overlap_type: partial(
         metric, max_dist=max_dist, overlap_type=overlap_type, 
     )
     if not second_only:
+        # both of the tracking and splitting detections uses the overlap
         track_dist_metric = get_metric(config["max_distance"], "iou" if use_iou else "ratio_2")
     else:
+        # only splitting detections uses the overlap
         track_dist_metric = partial(power_dist, power=2, ws=ws)
 
+    # calculate the cost cutoffs
     if use_overlap:
         common_cost_cutoff_max =  - np.log(0.01) 
     else:
         common_cost_cutoff_max = 0
     dist_cost_coef = dist_weight+weighted_dist_weight 
-
     if second_only:
         track_cost_cutoff = config["max_distance"] ** 2 
     else:
@@ -117,6 +131,7 @@ def get_tracker(
     else:
         splitting_cost_cutoff = False
 
+    # define the LapTrack object and return
     return LapTrack(
         track_dist_metric=track_dist_metric,
         track_cost_cutoff=track_cost_cutoff,
@@ -136,6 +151,7 @@ def get_tracker(
         else 90,
     )
 
+# the main function to launch the program
 def main2(
     base_dirs,  # separaed by ":"
     results_dir,

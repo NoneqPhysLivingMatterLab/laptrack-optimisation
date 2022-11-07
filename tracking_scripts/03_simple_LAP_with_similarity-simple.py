@@ -1,23 +1,34 @@
-from tkinter import W
+################################################
+# the script to calculate tracking scores 
+# with the squared-distance-based metric
+# using coordinates and features 
+################################################
+
 from laptrack import LapTrack
 from functools import partial
 from ray import tune
 from fire import Fire
 
+# power_dist is the weighted distance-power weight with the drift term
 from utils.common import power_dist_with_drift, main
 
 LAP_NAME = "03_simple_LAP_with_similarity"
 
+# the search range of the "feature_weight" is set to (0,10)
 config = {
     "feature_weight": tune.uniform(0.,10.)
 }
+# the initial value is set to zero
 initial_configs = [{
     "feature_weight":0
 }]
 
 def get_tracker(config, division, regionprop_keys=None):
+    # used the all dimensions, but those later than the first two dimensions are weighted
     ws = [1, 1] + [config["feature_weight"]] * (len(regionprop_keys) - 2) + [0]
+    # use the first two dimension for splitting detection
     ws2 = [1, 1] + [0] * (len(regionprop_keys) - 1)
+    # the power is set to be 2 (square)
     dist_power = 2
     track_metric=partial(
             power_dist_with_drift,
@@ -41,6 +52,7 @@ def get_tracker(config, division, regionprop_keys=None):
         ) if division else "none",
     )
 
+# read the data from the simple_LAP results
 def get_initial_configs_csv_pattern(yaml_params, prefix):
     if yaml_params["drift"]:
         return f"02_Simple_LAP_with_drift_{prefix}*.csv"

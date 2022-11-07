@@ -1,6 +1,7 @@
 # %%
 from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
+from matplotlib.patches import Patch
 import pandas as pd
 import numpy as np
 from os import path
@@ -37,7 +38,9 @@ previous_score_df
 methods = previous_score_df["method"].drop_duplicates().to_list()
 print(methods)
 symbols = "o*s^v><"
+colors = [plt.cm.tab10(i/10) for i in range(10)]
 assert len(symbols) >= len(methods)
+assert len(colors) >= len(methods)
 
 # %%
 score_keys = [
@@ -103,4 +106,44 @@ for score_key in score_keys:
     fig.savefig(f"../plots/figS_yeast_benchmark_{score_key}.pdf", bbox_inches="tight")
 
 
+# %%
+
+labels = ["Distance LapTrack"] + methods
+for score_key in score_keys[1:]:
+    fig,axes = plt.subplots(2,5,figsize=(8*(3/3.5), 4*(3/3.5)))
+    for ax, (TestSet, grp) in zip(np.ravel(axes),score_df.groupby("TestSet")):
+        previous_df = previous_score_df[previous_score_df["TestSet"]=="TS"+str(TestSet)]
+        if score_key in previous_df.columns:
+            best_val = grp[score_key].max()
+            vals = {
+                "Distance LapTrack":best_val,
+            }
+            previous_res = previous_df[["method",score_key]].set_index("method")
+            for i, method in enumerate(methods):
+                try:
+                    res = previous_res.loc[method]
+                    val = res[score_key]
+                    if np.isfinite(val):
+                        vals[method] = val
+                except KeyError:
+                    pass
+            xs = list(range(len(methods)+1))
+            vals_plot = [vals.get(m,0) for m in labels]
+            ax.bar(xs,vals_plot,color=colors[:len(labels)])
+            ax.set_aspect(7.5)
+        ax.set_title(f"TestSet {TestSet}")
+        ax.set_xticks([])
+        if not TestSet in [1,6]:
+            ax.set_yticks([])
+    fig.supylabel(score_key.replace("_original","").replace("_"," "),x=0.05)
+    fig.show()
+    markers = [Patch(facecolor=c, label='Color Patch') for c in colors[:len(labels)]]
+    fig.legend(markers,labels,handletextpad=0.05,columnspacing=0.5,
+               ncol=len(markers)//2,
+               loc="lower left", bbox_to_anchor=(0.15,0.9))
+    fig.savefig(f"../plots/figS_yeast_benchmark_best_{score_key}.pdf", bbox_inches="tight")
+
+
+# %%
+# !cp ../plots/figS_yeast_benchmark* /Users/fukai/myworks/papers/2208_LapTrack2/figS_yeast_benchmark/
 # %%
