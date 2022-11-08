@@ -93,14 +93,14 @@ for j, (csv, r) in enumerate(zip(np.array(csvs),_ranges)):
 # %%
 # !cp ../plots/fig2a2_C2C12_grid_search.pdf /Users/fukai/myworks/papers/2208_LapTrack2/figS_C2C12_grid_search.pdf
 # %%
-df1 = pd.read_csv(csvs[0])
-df2 = pd.read_csv(csvs[1])
+df1 = pd.read_csv(csvs[1])
+df2 = pd.read_csv(csvs[2])
 # %%
 df_all = df1.merge(df2,on=["config.max_distance","config.splitting_max_distance","config.gap_closing"])
 df_all
 # %%
 plt.rcParams['font.family'] = "Arial"
-plt.figure(figsize=(6,3))
+plt.figure(figsize=(5,2.5))
 for j,k in enumerate(["target_effectiveness","track_purity"]):
     k2=k.replace('_',' ').capitalize()
     plt.subplot(1,2,j+1)
@@ -109,12 +109,19 @@ for j,k in enumerate(["target_effectiveness","track_purity"]):
     plt.xlim(0.75,1)
     plt.ylim(0.75,1)
     plt.xlabel(f"{k2} at area 1")
-    plt.ylabel(f"{k2} at area 2")
+    if j == 0:
+        plt.ylabel(f"{k2} at area 2", y=0.4)
+    else:
+        plt.ylabel(f"{k2} at area 2")
     ind = (xs>0.75) & (ys>0.75)
     r = pearsonr(xs[ind],ys[ind])
-    plt.text(0.87,0.775,rf"$r={r.statistic:.2f}$"+"\n"+fr"(score$>0.75$)")
+    plt.text(0.835,0.758,rf"$r={r.statistic:.2f}$"+"\n"+fr"(score$>0.75$)")
     plt.plot([0.75,1],[0.75,1],"--k")
     plt.gca().set_aspect('equal')
 plt.tight_layout()
 plt.savefig("../plots/figS_score_corr.pdf",bbox_inches='tight')
 
+
+# %%
+# !cp ../plots/figS_score_corr.pdf /Users/fukai/myworks/papers/2208_LapTrack2/
+# %%

@@ -148,5 +148,5 @@ for score_key in score_keys[1:]:
 
 
 # %%
-!cp ../plots/figS_yeast_benchmark* /Users/fukai/myworks/papers/2208_LapTrack2/figS_yeast_benchmark/
+# !cp ../plots/figS_yeast_benchmark* /Users/fukai/myworks/papers/2208_LapTrack2/figS_yeast_benchmark/
 # %%
