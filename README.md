@@ -54,18 +54,24 @@ Located in `data`.
 - **CellMigration** Data for the cell migration dataset.
 - **homeostasis** Data for the mouse epidermis dataset.
 - **synthetic** Data for the coloured particles dataset.
+- **yeast_image_toolkit_benchmark** Data for the Yeast Image Toolkit dataset.
+- **C2C12** Data for the C2C12 dataset.
 
 ## Results
 Located in `results`.
 - **CellMigration_use_0.05** Results for the cell migration dataset.
 - **homeostasis** Results for the mouse epidermis dataset.
 - **homeostasis_grid_search** Results for parameter grid search with the mouse epidermis dataset.
-- **synthetic** Results for the coloured particles dataset.
+- **synthetic** Reksults for the coloured particles dataset.
+- **yeast_image_toolkit_benchmark** Results for parameter grid search with the Yeast Image Toolkit dataset.
+- **C2C12_grid_search** Results for parameter grid search with the C2C12 dataset.
 
 ## Interactive annotation example
-- The example for interactive annotation with napari is located in [The LapTrack repository](https://github.com/yfukai/laptrack/blob/main/examples/napari_interactive_example.ipynb).
+- The example for interactive annotation with napari is located in [The LapTrack repository](https://github.com/yfukai/laptrack/blob/720815bbf9f209d3e7bd6142ee9b5b43ec4ee0b3/docs/examples/napari_interactive_fix.ipynb).
 
 ## Credits
 
 - The data in `data/CellMigration` are generated from data in [10.5281/zenodo.6087728](https://doi.org/10.5281/zenodo.6087728), which are distributed with [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode).
 - The data in `data/homeostasis` are generated from data in the [Cell interaction paper repository](https://github.com/NoneqPhysLivingMatterLab/cell_interaction_gnn).
+- The data in `data/C2C12` are generated from data in https://osf.io/ysaq2/, which is distributed with [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode). See [10.1038/sdata.2018.237](https://doi.org/10.1038/sdata.2018.237) for details.
+- The data in `data/yeast_image_toolkit_benchmark` is generated from data in [Yeast Image Toolkit website](http://yeast-image-toolkit.biosim.eu/pmwiki.php).
