@@ -6,10 +6,16 @@ from scipy.stats import pearsonr
 from os import path
 
 csvs = [
+    "../results/C2C12_grid_search/C2C12_grid_search.csv",
     "../results/homeostasis_grid_search/homeostasis_grid_search_area1.csv",
     "../results/homeostasis_grid_search/homeostasis_grid_search_area2.csv",
 ]
 
+_ranges = [
+    (0.91, 1.),
+    (0.91, 0.95),
+    (0.91, 0.95),
+]
 
 score_key = "target_effectiveness"
 
@@ -58,39 +64,43 @@ ranges = [(100,300)]*len(csvs)
 
 # %%
 plt.rcParams['font.family'] = "Arial"
-fig, axes = plt.subplots(1,1,figsize=(4*(3/3.5), 3*(3/3.5)), 
-                        gridspec_kw=dict(wspace=-0.3))
-axes=[axes]
 names = []
-for j, csv in enumerate(np.array(csvs)[[0]]):
+for j, (csv, r) in enumerate(zip(np.array(csvs),_ranges)):
+    plt.rcParams['font.family'] = "Arial"
+    fig, ax = plt.subplots(1,1,figsize=(4*(3/3.5), 3*(3/3.5)), 
+                            gridspec_kw=dict(wspace=-0.3))
     df = pd.read_csv(csv)
     grp = df[df["config.gap_closing"]==1]
     df2 = grp.sort_values([k1, k2])
     k1_vals = np.array(sorted(df2[k1].unique()))
     k2_vals = np.array(sorted(df2[k2].unique()))
     vals = df2[score_key].values.reshape(len(k1_vals), len(k2_vals)).T
-    im=axes[j].pcolormesh(k1_vals, k2_vals, vals, vmin=0.91, vmax=0.95)
-    axes[j].set_xlabel("max_distance")
-    axes[j].set_ylabel("splitting_max_distance")
-    names.append(path.basename(csv)[:-4])
+    im=ax.pcolormesh(k1_vals, k2_vals, vals, vmin=r[0], vmax=r[1])
+    ax.set_xlabel("max_distance")
+    ax.set_ylabel("splitting_max_distance")
+    name = path.basename(csv)[:-4]
 #    axes[j].set_xticks(k1_vals[::4])
 #    axes[j].set_yticks(k2_vals)
 #    axes[j].set_aspect("equal")
-    max_pos = np.array(np.nonzero(vals==np.max(vals)))
-    axes[j].scatter(k1_vals[max_pos[1]], k2_vals[max_pos[0]], c="red")
-
-
-fig.colorbar(im,label="Target effectiveness")
-fig.savefig(f"../plots/fig2a2_{'_'.join(names)}.pdf", bbox_inches='tight')
+    if j>0:
+        max_pos = np.array(np.nonzero(vals==np.max(vals)))
+        ax.scatter(k1_vals[max_pos[1]], k2_vals[max_pos[0]], c="red")
+    if j == 0:
+        ax.set_title(f"{np.max(vals):.3f}")
+        ax.set_aspect("equal")
+    fig.colorbar(im,label="Target effectiveness")
+    fig.savefig(f"../plots/fig2a2_{name}.pdf", bbox_inches='tight')
 # %%
-df1 = pd.read_csv(csvs[0])
-df2 = pd.read_csv(csvs[1])
+# !cp ../plots/fig2a2_C2C12_grid_search.pdf /Users/fukai/myworks/papers/2208_LapTrack2/figS_C2C12_grid_search.pdf
+# %%
+df1 = pd.read_csv(csvs[1])
+df2 = pd.read_csv(csvs[2])
 # %%
 df_all = df1.merge(df2,on=["config.max_distance","config.splitting_max_distance","config.gap_closing"])
 df_all
 # %%
 plt.rcParams['font.family'] = "Arial"
-plt.figure(figsize=(6,3))
+plt.figure(figsize=(5,2.5))
 for j,k in enumerate(["target_effectiveness","track_purity"]):
     k2=k.replace('_',' ').capitalize()
     plt.subplot(1,2,j+1)
@@ -99,12 +109,19 @@ for j,k in enumerate(["target_effectiveness","track_purity"]):
     plt.xlim(0.75,1)
     plt.ylim(0.75,1)
     plt.xlabel(f"{k2} at area 1")
-    plt.ylabel(f"{k2} at area 2")
+    if j == 0:
+        plt.ylabel(f"{k2} at area 2", y=0.4)
+    else:
+        plt.ylabel(f"{k2} at area 2")
     ind = (xs>0.75) & (ys>0.75)
     r = pearsonr(xs[ind],ys[ind])
-    plt.text(0.87,0.775,rf"$r={r.statistic:.2f}$"+"\n"+fr"(score$>0.75$)")
+    plt.text(0.835,0.758,rf"$r={r.statistic:.2f}$"+"\n"+fr"(score$>0.75$)")
     plt.plot([0.75,1],[0.75,1],"--k")
     plt.gca().set_aspect('equal')
 plt.tight_layout()
 plt.savefig("../plots/figS_score_corr.pdf",bbox_inches='tight')
 
+
+# %%
+# !cp ../plots/figS_score_corr.pdf /Users/fukai/myworks/papers/2208_LapTrack2/
+# %%

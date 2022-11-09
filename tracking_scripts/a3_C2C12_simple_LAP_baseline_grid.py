@@ -60,7 +60,7 @@ def get_tracker(config, regionprop_keys=None):
 
 
 def main():
-    base_dir = "../data/C2C12/organized_data/BMP2/090303-C2C12P15-FGF2,BMP2_9_all"
+    base_dir = "../data/C2C12/organized_data/BMP2_updated"
     yaml_path = "../setting_yaml/C2C12.yaml"
     results_dir = "../results/C2C12_grid_search"
     os.makedirs(results_dir, exist_ok=True)

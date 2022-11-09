@@ -124,3 +124,5 @@ ax2.legend(loc="lower left", bbox_to_anchor=(0, 0))
 fig.savefig("../plots/fig_SX_drift_scores.pdf",bbox_inches="tight")
 fig2.subplots_adjust(left=0.2, right=0.95, bottom=0.15, top=0.85)
 fig2.savefig("../plots/fig_2b_drift_score.pdf")
+
+# %%

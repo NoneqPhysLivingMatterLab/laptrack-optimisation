@@ -43,8 +43,9 @@ assert len(symbols) >= len(methods)
 assert len(colors) >= len(methods)
 
 # %%
+plt.rcParams['font.family'] = "Arial"
 score_keys = [
-    "Jaccard_index_original",
+    'target_effectiveness_original',
     "Tracking F",
     "Long-time tracking F",
 ]
@@ -88,6 +89,8 @@ for score_key in score_keys:
                                        c=val,norm=norm,cmap=plt.cm.viridis)
                 except KeyError:
                     pass
+        else:
+            ax_top.text(len(methods)/2-0.5,0,f"{grp[score_key].max():.3f}",ha="center")
         ax_top.set_xlim([-0.5,len(methods)-0.5])
         ax_top.axis("off")
         ax_top.set_title(f"TestSet {TestSet}")
