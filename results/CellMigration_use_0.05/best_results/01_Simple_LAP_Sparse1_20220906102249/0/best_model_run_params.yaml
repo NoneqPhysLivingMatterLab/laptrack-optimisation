@@ -83,6 +83,6 @@ params_update: null
 prefix: Sparse1
 read_overlap_df: false
 results_dir: ./results/CellMigration_use_0.05/
-score_target: true_ratio
+score_target: true_positive_rate
 test_base_dirs: null
 yaml_path: ./setting_yaml/CellMigration.yaml

@@ -83,7 +83,7 @@ params_update: null
 prefix: area2
 read_overlap_df: false
 results_dir: ./results/homeostasis/
-score_target: union_ratio
+score_target: Jaccard_index
 test_base_dir: ./data/homeostasis/organized_data/area1
 test_base_dirs:
 - ./data/homeostasis/organized_data/area1

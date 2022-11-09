@@ -82,7 +82,7 @@ only_division_configs:
 params_update: null
 prefix: area2
 results_dir: ./results/homeostasis/
-score_target: union_ratio
+score_target: Jaccard_index
 test_base_dir: ./data/homeostasis/organized_data/area1
 test_base_dirs:
 - ./data/homeostasis/organized_data/area1

@@ -162,7 +162,7 @@ def main2(
     division_fitting_use_ratio=None,
     max_dist_quantile=0.999,
     max_dist_quantile_factor=1.5,
-    score_target="true_ratio",
+    score_target="true_positive_rate",
     test_base_dirs=None,  # separated by ":"
     second_only=False, 
     use_overlap=True,

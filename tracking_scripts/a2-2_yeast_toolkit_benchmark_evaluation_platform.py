@@ -1,3 +1,4 @@
+# %%
 ##############
 #
 # The script to calculate tracking scores 
@@ -8,7 +9,7 @@
 
 """
 the following commands need to be executed before analysis.
-the notebook was executed as a Jupyter notebook in evaluate_platform environment.
+the notebook was executed as a Jupyter notebook in the evaluate_platform environment.
 
 cd ~/.local/src/
 git clone https://github.com/Fafa87/EP/
@@ -106,3 +107,5 @@ results_df=pd.DataFrame.from_records(records)
 results_df["max_distance"] =results_df["seg_df_path"].apply(lambda x:int(x.split("_")[2]))
 results_df["gap_closing_max_distance"] =results_df["seg_df_path"].apply(lambda x:int(x[:-4].split("_")[3]))
 results_df.to_csv(path.join(results_dir,"evaluation_platform_res.csv"),index=False)
+
+# %%

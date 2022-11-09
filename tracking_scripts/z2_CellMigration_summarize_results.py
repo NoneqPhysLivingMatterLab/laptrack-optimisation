@@ -59,7 +59,7 @@ for i, row in files_df.iterrows():
         files_df.loc[i, "tune_" + k] = top_row[k]
 display(files_df)
 # %%
-score_keys2 = ["target_effectiveness","track_purity", "union_ratio", "division_recovery"]
+score_keys2 = ["target_effectiveness","track_purity", "Jaccard_index", "mitotic_branching_correctness"]
 colors = [plt.cm.tab10(i / 10) for i in range(10)]
 symbols = "osv^><*Dd8"
 fig, axes = plt.subplots(2, 2, figsize=(9, 7), gridspec_kw=dict(hspace=0.4))

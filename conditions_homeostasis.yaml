@@ -25,4 +25,4 @@ conditions:
     test-base-dirs: 
       - ./data/homeostasis/organized_data/area2
       - ./data/homeostasis/organized_data/area1
-    score_target: "union_ratio"
+    score_target: "Jaccard_index"

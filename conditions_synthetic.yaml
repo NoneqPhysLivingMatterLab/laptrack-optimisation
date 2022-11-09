@@ -38,6 +38,6 @@ conditions:
       - "./data/synthetic/organized_data_small/write_every_150/1"
       - "./data/synthetic/organized_data_small/write_every_175/1"
       - "./data/synthetic/organized_data_small/write_every_200/1"
-    score_target: "union_ratio"
+    score_target: "Jaccard_index"
 
 

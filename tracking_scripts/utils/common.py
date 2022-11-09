@@ -124,7 +124,7 @@ def main(
     config_update=None,
     params_update=None,
     coords_update=None,
-    score_target="true_ratio",
+    score_target="true_positive_rate",
     test_base_dirs=None,  # separated by ":"
     max_dist_quantile=0.999,
     max_dist_quantile_factor=1.5,
@@ -604,10 +604,10 @@ def np_array_to_edge_set(edges):
     return set([tuple(map(tuple, e)) for e in edges])
 
 score_name_map = {
-    "union_ratio": "Connection Jaccard index",
-    "true_ratio" : "Connection true positive rate",
-    "predicted_ratio" : "Connection precision",
-    "division_recovery" : "Mitotic branching correctness",
+    "Jaccard_index": "Connection Jaccard index",
+    "true_positive_rate" : "Connection true positive rate",
+    "precision" : "Connection precision",
+    "mitotic_branching_correctness" : "Mitotic branching correctness",
     "target_effectiveness" : "Target effectiveness",
     "track_purity" : "Track purity",
 }

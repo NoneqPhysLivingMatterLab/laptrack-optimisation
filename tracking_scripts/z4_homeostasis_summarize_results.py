@@ -10,7 +10,7 @@ from IPython.display import display
 import yaml
 from laptrack.scores import calc_scores
 from utils.common import np_array_to_edge_set, score_name_map
-score_name_map["division_recovery"]="Mitotic branching\ncorrectness"
+score_name_map["mitotic_branching_correctness"]="Mitotic branching\ncorrectness"
 
 do_calc_score = False
 
@@ -130,10 +130,10 @@ for p_i, param in enumerate(params):
 
         methods = list(files_df["method"].unique())
 
-        score_keys2 = ["union_ratio", "true_ratio", "predicted_ratio", "division_recovery", "target_effectiveness","track_purity"]
+        score_keys2 = ["Jaccard_index", "true_positive_rate", "precision", "mitotic_branching_correctness", "target_effectiveness","track_purity"]
         assert set(score_keys2) == set(score_keys)
         for j, (k, ax) in enumerate(zip(score_keys2, np.ravel(axes))):
-            if k=="division_recovery":
+            if k=="mitotic_branching_correctness":
                 _axes = [ax,ax2]
             else:
                 _axes = [ax]

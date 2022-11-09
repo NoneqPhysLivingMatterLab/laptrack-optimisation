@@ -1,6 +1,6 @@
-division_recovery: -1
-predicted_ratio: 0.9403066069732736
+mitotic_branching_correctness: -1
+precision: 0.9403066069732736
 target_effectiveness: 0.8250204415372036
 track_purity: 0.8222764889431556
-true_ratio: 0.9445352957209049
-union_ratio: 0.891103111339676
+true_positive_rate: 0.9445352957209049
+Jaccard_index: 0.891103111339676

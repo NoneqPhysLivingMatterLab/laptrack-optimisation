@@ -69,7 +69,7 @@ params_update: null
 prefix: write_every_75-0
 read_overlap_df: false
 results_dir: ./results/synthetic/
-score_target: union_ratio
+score_target: Jaccard_index
 test_base_dir: ./data/synthetic/organized_data_small/write_every_75/1
 test_base_dirs:
 - ./data/synthetic/organized_data_small/write_every_75/1

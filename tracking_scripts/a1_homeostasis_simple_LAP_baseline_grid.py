@@ -87,12 +87,12 @@ def main():
         analysis = tune.run(
             calc_fitting_score,
             config=config2,
-            metric="union_ratio",
+            metric="Jaccard_index",
             mode="max",
             search_alg=search_alg,
             #                resources_per_trial={"cpu": single_shot_count*4}
         )
-        analysis_df = analysis.results_df.sort_values(by="union_ratio", ascending=False)
+        analysis_df = analysis.results_df.sort_values(by="Jaccard_index", ascending=False)
         analysis_df.to_csv(path.join(results_dir, f"homeostasis_grid_search_area{area}.csv"))
 
 
