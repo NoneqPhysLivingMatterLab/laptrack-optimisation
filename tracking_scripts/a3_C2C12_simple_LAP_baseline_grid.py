@@ -65,7 +65,7 @@ def main():
     results_dir = "../results/C2C12_grid_search"
     os.makedirs(results_dir, exist_ok=True)
 
-    single_shot_count = 10
+    single_shot_count = 52
 
     yaml_params = read_yaml(yaml_path)
     regionprop_keys = yaml_params["regionprop_keys"]
