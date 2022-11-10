@@ -36,7 +36,8 @@ Located in `tracking_scripts`, executed via `execute.py`.
 
 ## Plotting scripts
 Located in `tracking_scripts`, executed as Jupyter notebooks in, e.g., Visual Studio Code.
-- **z1_make_grid_search_plots.py** Generate Fig. 2(b) and S1.
+- **z1-1_make_grid_search_plots.py** Generate Fig. 2(b), S1, and S3.
+- **z1-2_make_yeast_grid_search_plots.py** Generate Fig. S2.
 - **z2_CellMigration_summarize_results.py** Generate Fig. 2(d) and S2.
 - **z3_synthetic_summarize_results.py** Generate Fig. 2(f) and S3.
 - **z4_homeostasis_summarize_results.py** Generate Fig. 2(g).
@@ -74,4 +75,4 @@ Located in `results`.
 - The data in `data/CellMigration` are generated from data in [10.5281/zenodo.6087728](https://doi.org/10.5281/zenodo.6087728), which are distributed with [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode).
 - The data in `data/homeostasis` are generated from data in the [Cell interaction paper repository](https://github.com/NoneqPhysLivingMatterLab/cell_interaction_gnn).
 - The data in `data/C2C12` are generated from data in https://osf.io/ysaq2/, which is distributed with [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode). See [10.1038/sdata.2018.237](https://doi.org/10.1038/sdata.2018.237) for details.
-- The data in `data/yeast_image_toolkit_benchmark` is generated from data in [Yeast Image Toolkit website](http://yeast-image-toolkit.biosim.eu/pmwiki.php).
+- The data in `data/yeast_image_toolkit_benchmark` is generated from data in [Yeast Image Toolkit website](http://yeast-image-toolkit.biosim.eu/pmwiki.php) with the author consent.

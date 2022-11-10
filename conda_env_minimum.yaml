@@ -33,7 +33,6 @@ dependencies:
   - wheel=0.37.1
   - yaml=0.2.5=h7b6447c_0
   - pip:
-    - laptrack==0.3.6
-    - pydantic==1.9.2
+    - laptrack==0.9.1
+    - pydantic==1.10.2
     - ray[tune]==2.0.0
-    - typing-extensions==3.10.0.2
