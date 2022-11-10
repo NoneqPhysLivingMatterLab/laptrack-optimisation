@@ -76,3 +76,17 @@ Located in `results`.
 - The data in `data/homeostasis` are generated from data in the [Cell interaction paper repository](https://github.com/NoneqPhysLivingMatterLab/cell_interaction_gnn).
 - The data in `data/C2C12` are generated from data in https://osf.io/ysaq2/, which is distributed with [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/legalcode). See [10.1038/sdata.2018.237](https://doi.org/10.1038/sdata.2018.237) for details.
 - The data in `data/yeast_image_toolkit_benchmark` is generated from data in [Yeast Image Toolkit website](http://yeast-image-toolkit.biosim.eu/pmwiki.php) with the author consent.
+
+## Note
+
+To reproduce the publication result in the precisely same environment, 
+the following command should be executed at the commit `160a34f20f3e6a6ac4f894eb9fe4f6092a747843`.
+
+```bash
+python execute.py --n-jobs=1 conditions_drift.yaml # for the cell migration dataset
+python execute.py --n-jobs=1 conditions_synthetic.yaml # for the coloured particles dataset
+python execute.py --n-jobs=1 conditions_homeostasis.yaml # for the mouse epidermis dataset
+
+cd tracking_scripts
+python a1_homeostasis_simple_LAP_baseline_grid.py # to perform grid search for the mouse epidermis dataset 
+```

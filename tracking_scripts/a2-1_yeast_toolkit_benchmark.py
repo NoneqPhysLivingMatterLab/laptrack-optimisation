@@ -83,9 +83,10 @@ def main():
                 config,
                 regionprop_keys=regionprop_keys,
             )
+            # track the cells
             track_tree = lt.predict(coords)
             predicted_edges = list(track_tree.edges())
-
+            # calculate the score
             score_dict = calc_scores(true_edges, predicted_edges)
 
             ### output result for evaluation by evaluation platform (yeast image toolkit) ###
@@ -117,6 +118,7 @@ def main():
             search_alg=search_alg,
         )
         ########### Save results ###########
+        # sort the result by connection Jaccard index and save
         analysis_df = analysis.results_df.sort_values(by="Jaccard_index", ascending=False)
         analysis_df.to_csv(path.join(results_dir, f"yeast_image_toolkit_grid_search_TestSet{i}.csv"))
 

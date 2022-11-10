@@ -2,11 +2,10 @@
 #
 # The script to perform tracking of C2C12 datasets
 # with grid points of the cutoff parameters.
-# See a2-1_yeast_toolkit_benchmark.py for the detailed comments 
-# for each step.
 #
 ###############
 
+########### Importing packages ###########
 
 from laptrack import LapTrack
 from functools import partial
@@ -23,7 +22,11 @@ from laptrack.scores import calc_scores
 
 LAP_NAME = "01-2_Simple_LAP_baseline_grid"
 
+########### Setting the search range of each parameters ###########
+
+# max_dists ... the cutoff for the cost function at tracking
 max_dists = np.linspace(2, 47, 16).tolist()
+# gap_closing_max_dists ... the cutoff for the cost function at gap closing
 split_max_dists = np.linspace(2, 47, 16).tolist()
 gap_closings = [0, 1]
 
@@ -45,6 +48,7 @@ initial_configs = [
     )
 ]
 
+########### A function to get a LapTrack object with a given config ###########
 
 def get_tracker(config, regionprop_keys=None):
     ws = [1, 1] + [0] * (len(regionprop_keys) - 1)
@@ -58,6 +62,7 @@ def get_tracker(config, regionprop_keys=None):
         splitting_dist_metric=partial(power_dist, ws=ws, power=dist_power),
     )
 
+########### The main function for grid search ###########
 
 def main():
     base_dir = "../data/C2C12/organized_data/BMP2_updated"
@@ -74,13 +79,16 @@ def main():
         base_dir, regionprop_keys
     )
 
+    ########### The function to track, save scores and results ###########
     def calc_fitting_score(config, report=True):
         lt = get_tracker(
             config,
             regionprop_keys=regionprop_keys,
         )
+        # track the cells
         track_tree = lt.predict(coords)
         predicted_edges = list(track_tree.edges())
+        # calculate the score
         score_dict = calc_scores(true_edges, predicted_edges)
         if report:
             tune.report(**score_dict)
@@ -89,6 +97,7 @@ def main():
     #    test_config = initial_configs[0].copy()
     #    calc_fitting_score(test_config, report=False)
 
+    ########### Execute grid search by Ray-Tune ###########
     config2 = config.copy()
     search_alg = BasicVariantGenerator(
         points_to_evaluate=initial_configs,
@@ -102,6 +111,8 @@ def main():
         search_alg=search_alg,
         #                resources_per_trial={"cpu": single_shot_count*4}
     )
+    ########### Save results ###########
+    # sort the result by connection Jaccard index and save
     analysis_df = analysis.results_df.sort_values(by="Jaccard_index", ascending=False)
     analysis_df.to_csv(path.join(results_dir, "C2C12_grid_search.csv"))
 
