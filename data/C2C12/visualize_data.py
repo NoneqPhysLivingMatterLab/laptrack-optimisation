@@ -9,6 +9,7 @@ import numpy as np
 from glob import glob
 from dask_image import imread
 from IPython.display import display
+from matplotlib import pyplot as plt
 
 # %%
 
@@ -17,8 +18,16 @@ viewer = napari.Viewer()
 # %%
 basedir = "/Volumes/common2/TEMPORARY/TimelapseExamples/TrackingProject/data/C2C12/090303-C2C12P15-FGF2,BMP2/hzd5p/osfstorage/"
 images = imread.imread(path.join(basedir,"*.tif"))#[::5]
-image_paths = glob(path.join(basedir,"*.tif"))
+image_paths = sorted(glob(path.join(basedir,"*.tif")))
 print(image_paths[0])
+image_id = np.array([int(p.split("-")[-1].split(".")[0]) for p in image_paths])
+ng_ids = image_id[:-1][image_id[1:] - image_id[:-1]>1]
+print("----------------")
+for i in range(1,800):
+    p = f'/Volumes/common2/TEMPORARY/TimelapseExamples/TrackingProject/data/C2C12/090303-C2C12P15-FGF2,BMP2/hzd5p/osfstorage/exp1_F0009-{i:05d}.tif'
+    if p not in image_paths:
+        print(p)
+    
 
 # %%
 viewer.add_image(images)
@@ -35,7 +44,20 @@ track_df["frame"]=track_df["frame"]+1
 viewer.add_tracks(
     track_df[["track","frame","y","x"]].values
 )
+# %%
 
+ok_frames = np.zeros(track_df["frame"].max(),dtype=int)
+ng_frames = np.zeros(track_df["frame"].max(),dtype=int)
+for i, grp in track_df.groupby("track"):
+    frame = grp["frame"].values
+    pos = grp[["x","y"]].values
+    diff=np.linalg.norm(pos[1:]-pos[:-1],axis=1)
+    ok_frames[frame[1:]] += diff!=0
+    ng_frames[frame[1:]] += diff==0
+    plt.plot(frame[1:],diff)
+plt.show()
+# %%
+plt.plot(ng_frames / ok_frames)
 # %%
 root=path.dirname(path.dirname(path.dirname(basedir)))
 for d in os.listdir(root):
