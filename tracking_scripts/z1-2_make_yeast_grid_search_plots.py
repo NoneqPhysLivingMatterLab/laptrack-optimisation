@@ -44,11 +44,11 @@ assert len(colors) >= len(methods)
 
 # %%
 plt.rcParams['font.family'] = "Arial"
-score_keys = [
-    'target_effectiveness_original',
-    "Tracking F",
-    "Long-time tracking F",
-]
+score_keys = {
+    'target_effectiveness_original' : "Target effectiveness",
+    "Tracking F" : "Tracking F",
+    "Long-time tracking F" : "Long-term fracking F",
+}
 
 def plot_score_key(grp,score_key, fig, ax, r=None, xskip=None):
     if not r:
@@ -100,7 +100,7 @@ for score_key in score_keys:
     fig.supylabel(k2)
     fig.show()
     fig.colorbar(im,ax=axes.ravel().tolist(),
-                 label=score_key.replace("_original","").replace("_"," "))
+                 label=score_keys[score_key])
     markers = [Line2D([0],[0], color=plt.cm.viridis(0.5), marker=m, lw=0) 
                for m in symbols]
     fig.legend(markers,methods,handletextpad=0.01,columnspacing=0.01,
@@ -112,7 +112,7 @@ for score_key in score_keys:
 # %%
 
 labels = ["Distance LapTrack"] + methods
-for score_key in score_keys[1:]:
+for score_key in list(score_keys.keys())[1:]:
     fig,axes = plt.subplots(2,5,figsize=(8*(3/3.5), 4*(3/3.5)))
     for ax, (TestSet, grp) in zip(np.ravel(axes),score_df.groupby("TestSet")):
         previous_df = previous_score_df[previous_score_df["TestSet"]=="TS"+str(TestSet)]
@@ -138,7 +138,7 @@ for score_key in score_keys[1:]:
         ax.set_xticks([])
         if not TestSet in [1,6]:
             ax.set_yticks([])
-    fig.supylabel(score_key.replace("_original","").replace("_"," "),x=0.05)
+    fig.supylabel(score_keys[score_key],x=0.05)
     fig.show()
     markers = [Patch(facecolor=c, label='Color Patch') for c in colors[:len(labels)]]
     fig.legend(markers,labels,handletextpad=0.05,columnspacing=0.5,

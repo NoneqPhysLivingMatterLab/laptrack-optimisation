@@ -84,7 +84,7 @@ for j, (csv, r) in enumerate(zip(np.array(csvs),_ranges)):
 #    axes[j].set_xticks(k1_vals[::4])
 #    axes[j].set_yticks(k2_vals)
 #    axes[j].set_aspect("equal")
-    if j>0:
+    if j>-1:
         max_pos = np.array(np.nonzero(vals==np.max(vals)))
         ax.scatter(k1_vals[max_pos[1]], k2_vals[max_pos[0]], c="red")
     if j == 0:
