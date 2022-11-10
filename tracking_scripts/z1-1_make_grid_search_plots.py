@@ -30,6 +30,7 @@ def plot_score_key(score_key, ranges=None, xskips=None):
     for csv,r,xskip in zip(csvs,ranges,xskips):
         vmin, vmax = r
         df = pd.read_csv(csv)
+        df.columns = df.columns.str.replace("/",".")
         plt.figure(figsize=(10, 5))
         for j, (gap_closing, grp) in enumerate(df.groupby("config.gap_closing")):
             plt.subplot(1, 2, j + 1)
@@ -70,6 +71,7 @@ for j, (csv, r) in enumerate(zip(np.array(csvs),_ranges)):
     fig, ax = plt.subplots(1,1,figsize=(4*(3/3.5), 3*(3/3.5)), 
                             gridspec_kw=dict(wspace=-0.3))
     df = pd.read_csv(csv)
+    df.columns = df.columns.str.replace("/",".")
     grp = df[df["config.gap_closing"]==1]
     df2 = grp.sort_values([k1, k2])
     k1_vals = np.array(sorted(df2[k1].unique()))
