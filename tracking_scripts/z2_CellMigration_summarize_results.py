@@ -14,21 +14,16 @@ from utils.common import score_name_map
 csvs = glob("../results/CellMigration_use_0.05/*.csv")
 # %%
 filenames = [path.basename(c) for c in csvs]
-pattern = "(.+)_Sparse(\d)_(\d)+_\d+.csv"
+pattern = "(.+)_Sparse(\d)_(\d)+.csv"
 splitted = []
-csvs2=[]
 for f in filenames:
     print(f)
-    try:
-        splitted.append(re.search(pattern, f).groups())
-        csvs2.append(path.join("../results/CellMigration_use_0.05",f))
-    except AttributeError:
-        pass
+    splitted.append(re.search(pattern, f).groups())
 # %%
 files_df = (
     pd.DataFrame(
         {
-            "filename": csvs2,
+            "filename": csvs,
             "skip": [s[1] for s in splitted],
             "method": [s[0] for s in splitted],
         }
