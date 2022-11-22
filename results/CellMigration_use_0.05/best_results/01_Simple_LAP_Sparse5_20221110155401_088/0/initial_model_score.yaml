@@ -1,0 +1,6 @@
+Jaccard_index: 0.7039496679482699
+mitotic_branching_correctness: 0.42105263157894735
+precision: 0.8238903661280426
+target_effectiveness: 0.6107796749639992
+track_purity: 0.7083248107997545
+true_positive_rate: 0.8286360831104711

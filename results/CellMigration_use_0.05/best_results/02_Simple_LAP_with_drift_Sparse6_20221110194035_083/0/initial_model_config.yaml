@@ -1,0 +1,34 @@
+drift_x: !!python/object/apply:numpy.core.multiarray.scalar
+- &id001 !!python/object/apply:numpy.dtype
+  args:
+  - f8
+  - false
+  - true
+  state: !!python/tuple
+  - 3
+  - <
+  - null
+  - null
+  - null
+  - -1
+  - -1
+  - 0
+- !!binary |
+  iZJ/IcyAMMA=
+drift_y: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  06Srr+mGCsA=
+gap_closing: 1
+gap_closing_max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  Se5lGSdYMkA=
+max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  Se5lGSdYMkA=
+splitting_max_distance: !!python/object/apply:numpy.core.multiarray.scalar
+- *id001
+- !!binary |
+  Se5lGSdYMkA=
