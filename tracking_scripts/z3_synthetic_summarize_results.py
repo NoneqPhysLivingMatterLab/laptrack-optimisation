@@ -137,3 +137,5 @@ fig.savefig("../plots/fig_SX_synthetic_scores.pdf",bbox_inches="tight")
 fig2.subplots_adjust(left=0.2, right=0.95, bottom=0.15, top=0.85)
 fig2.savefig("../plots/fig_2c_synthetic.pdf")
 #
+
+# %%
