@@ -6,11 +6,11 @@ programs:
 
 program_params:
   04_simple_LAP_with_overlap_dist_sum.py:
-    second_only: [true,false]
+    second_only: [false]
     use_overlap: [true]
-    use_euclidean_dist: [true,false]
-    use_weighted_dist: [true,false]
-    use_iou: [true,false]
+    use_euclidean_dist: [false]
+    use_weighted_dist: [false]
+    use_iou: [false]
 
 conditions:
   homeostasis_2:
