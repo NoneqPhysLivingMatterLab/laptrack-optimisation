@@ -44,10 +44,12 @@ assert len(colors) >= len(methods)
 
 # %%
 plt.rcParams['font.family'] = "Arial"
+plt.figure(figsize=(1,1))
+plt.plot(range(1))
 score_keys = {
     'target_effectiveness_original' : "Target effectiveness",
-    "Tracking F" : "Tracking F",
-    "Long-time tracking F" : "Long-term fracking F",
+    "Tracking F" : "Tracking F-score",
+    "Long-time tracking F" : "Long-term tracking F-score",
 }
 
 def plot_score_key(grp,score_key, fig, ax, r=None, xskip=None):
@@ -99,8 +101,9 @@ for score_key in score_keys:
     fig.supxlabel(k1)
     fig.supylabel(k2)
     fig.show()
-    fig.colorbar(im,ax=axes.ravel().tolist(),
-                 label=score_keys[score_key])
+    clb = fig.colorbar(im,ax=axes.ravel().tolist(),
+                 label=score_keys[score_key],)
+    clb.ax.yaxis.label.set_fontsize(13)
     markers = [Line2D([0],[0], color=plt.cm.viridis(0.5), marker=m, lw=0) 
                for m in symbols]
     fig.legend(markers,methods,handletextpad=0.01,columnspacing=0.01,
@@ -148,5 +151,5 @@ for score_key in list(score_keys.keys())[1:]:
 
 
 # %%
-# !cp ../plots/figS_yeast_benchmark* /Users/fukai/myworks/papers/2208_LapTrack2/figS_yeast_benchmark/
+!cp ../plots/figS_yeast_benchmark* /Users/fukai/myworks/papers/2208_LapTrack2/figS_yeast_benchmark/
 # %%
